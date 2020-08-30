@@ -11,10 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
-import redis
 from pathlib import Path
-
-import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -82,12 +79,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'da6hfcgjn617s7',
-        'HOST': 'ec2-54-161-150-170.compute-1.amazonaws.com',
-        'PORT': 5432,
-        'USER': 'kwmqialroilcve',
-        'PASSWORD': '321d13ce79085ce3f1cf1855c6d2dc7ae1a2c301418748d6f6b2567244817b95'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -130,14 +123,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 ASGI_APPLICATION = 'mysite.routing.application'
-
-r = redis.from_url(os.environ.get("REDIS_URL"))
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'LOCATION': os.environ.get('REDIS_URL'),
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
     },
 }
 
