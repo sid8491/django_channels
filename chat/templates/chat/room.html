@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Room</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'chat/style.css' %}">
+</head>
+<body>
+    <div class="container">
+		<div id="task-container">
+			<div id="form-wrapper">
+				<form id="form">
+					<div class="flex-wrapper">
+						<div style="flex: 6">
+							<textarea id="chat-log" cols="100" rows="20" class="form-control"></textarea><br>
+                            <input id="chat-message-input" type="text" size="100" class="form-control"><br>
+                            <input id="chat-message-submit" type="button" value="Send" class="btn btn-primary ">
+                            {{ room_name|json_script:"room-name" }}
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+    </div>
+    <script src="{% static 'chat/app.js' %}"></script>
+</body>
