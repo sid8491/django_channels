@@ -28,7 +28,7 @@ SECRET_KEY = 'da)rw(t8e00qwjhu&o#+laezmfa@#xtwll-w4ek0*pb=s(r8x#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'agile-mesa-28689.herokuapp.coml']
 
 
 # Application definition
@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'da6hfcgjn617s7',
+        'HOST': 'ec2-54-161-150-170.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'kwmqialroilcve',
+        'PASSWORD': '321d13ce79085ce3f1cf1855c6d2dc7ae1a2c301418748d6f6b2567244817b95'
     }
 }
 
@@ -125,7 +129,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 ASGI_APPLICATION = 'mysite.routing.application'
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
