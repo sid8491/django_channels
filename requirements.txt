@@ -15,6 +15,7 @@ daphne==2.5.0
 dj-database-url==0.5.0
 Django==3.1
 django-heroku==0.3.1
+django-redis-cache==2.1.1
 gunicorn==20.0.4
 hiredis==1.1.0
 hyperlink==20.0.1
@@ -32,11 +33,12 @@ PyHamcrest==2.0.2
 pylint==2.6.0
 pyOpenSSL==19.1.0
 pytz==2020.1
+redis==3.5.3
 service-identity==18.1.0
 six==1.15.0
 sqlparse==0.3.1
 toml==0.10.1
-Twisted
+Twisted @ file:///D:/development/Twisted-20.3.0-cp38-cp38-win_amd64.whl
 txaio==20.4.1
 whitenoise==5.2.0
 wrapt==1.12.1

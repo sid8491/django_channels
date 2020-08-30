@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import redis
 from pathlib import Path
 
 import django_heroku
@@ -132,12 +133,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 ASGI_APPLICATION = 'mysite.routing.application'
 
+r = redis.from_url(os.environ.get("REDIS_URL"))
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
+        'LOCATION': os.environ.get('REDIS_URL'),
     },
 }
 
