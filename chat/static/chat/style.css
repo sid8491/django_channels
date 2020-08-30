@@ -53,3 +53,22 @@ body{
         border-bottom: 1px solid  #e9e9e9;
         color: #686868;
       }
+
+  .chat-log {
+    margin: 5px;
+    min-height: auto;
+  }
+
+  .chat-log-me {
+    float: right;
+    border-radius: 15px;
+    background: #71b2fc;
+    padding: 10px;
+  }
+
+  .chat-log-other {
+    float: left;
+    border-radius: 15px;
+    background: #9ec961;
+    padding: 10px;
+  }

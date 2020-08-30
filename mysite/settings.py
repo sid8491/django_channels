@@ -132,6 +132,3 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
-
-django_heroku.settings(locals())
