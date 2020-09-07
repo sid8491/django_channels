@@ -12,6 +12,7 @@ const chatSocket = new ReconnectingWebSocket(
 chatSocket.onopen = function(e) {
     document.querySelector('#chat-log').innerHTML = ''
     fetchMessages();
+    scrollToBottom();
   }
 
 chatSocket.onmessage = function(e) {
@@ -52,22 +53,22 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
             'message': message,
             'from': userName
         }));
-        document.querySelector('#chat-log').innerHTML += (`<div class='chat-log-me'>` + message + '</div><br><br>');
+        document.querySelector('#chat-log').innerHTML += (`<div class='chat-log-me'> ${message} </div><br><br>`);
         messageInputDom.value = '';
     }
     scrollToBottom();
 };
-
-function scrollToBottom() {
-    document.querySelector('#chat-log').scrollTo({
-        left: 0,
-        top: document.querySelector('#chat-log').scrollHeight - document.querySelector('#chat-log').clientHeight,
-        behavior: 'smooth'
-    });
-}
 
 function fetchMessages() {
     chatSocket.send(JSON.stringify({
         'command': 'load_history'
     }));
   }
+
+function scrollToBottom() {
+    document.querySelector('#chat-log').scrollTo({
+        left: 0,
+        top: document.querySelector('#chat-log').scrollHeight - document.querySelector('#chat-log').clientHeight,
+        behavior: 'smooth'
+      });
+}

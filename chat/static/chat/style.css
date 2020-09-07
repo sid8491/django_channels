@@ -90,3 +90,8 @@ body{
   background-image: -webkit-linear-gradient(bottom, #5ee7df 0%, #b490ca 100%);
   background-image: linear-gradient(to top, #5ee7df 0%, #b490ca 100%);
 }
+
+.senderName {
+  font-size: x-small;
+  float: right;
+}
