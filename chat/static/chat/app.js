@@ -29,6 +29,7 @@ chatSocket.onmessage = function(e) {
             document.querySelector('#chat-log').innerHTML += (`<div class='chat-log-other'>` + data.message['message'] + '</div><br><br>');
         }
     }
+    scrollToBottom();
 };
 
 chatSocket.onclose = function(e) {
@@ -54,7 +55,16 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
         document.querySelector('#chat-log').innerHTML += (`<div class='chat-log-me'>` + message + '</div><br><br>');
         messageInputDom.value = '';
     }
+    scrollToBottom();
 };
+
+function scrollToBottom() {
+    document.querySelector('#chat-log').scrollTo({
+        left: 0,
+        top: document.querySelector('#chat-log').scrollHeight - document.querySelector('#chat-log').clientHeight,
+        behavior: 'smooth'
+    });
+}
 
 function fetchMessages() {
     chatSocket.send(JSON.stringify({
