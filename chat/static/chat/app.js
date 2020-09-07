@@ -1,17 +1,34 @@
 const roomName = JSON.parse(document.getElementById('room-name').textContent);
+const userName = JSON.parse(document.getElementById('username').textContent);
 
-const chatSocket = new WebSocket(
+const chatSocket = new ReconnectingWebSocket(
     'ws://'
     + window.location.host
     + '/ws/chat/'
     + roomName
     + '/'
 );
-console.log(window.location.host)
+
+chatSocket.onopen = function(e) {
+    document.querySelector('#chat-log').innerHTML = ''
+    fetchMessages();
+  }
 
 chatSocket.onmessage = function(e) {
     const data = JSON.parse(e.data);
-    document.querySelector('#chat-log').innerHTML += (`<div class='chat-log-other'>` + data.message + '</div><br><br>');
+    if (data.command == 'messages') {
+        for (let i=data.messages.length-1; i>=0; i--) {
+            if (data.messages[i]['author'] != userName) {
+                document.querySelector('#chat-log').innerHTML += (`<div class='chat-log-other'>` + data.messages[i]['message'] + '</div><br><br>');
+            } else {
+                document.querySelector('#chat-log').innerHTML += (`<div class='chat-log-me'>` + data.messages[i]['message'] + '</div><br><br>');
+            }
+        }
+    } else if (data.command == 'new_message') {
+        if (data.message['author'] != userName) {
+            document.querySelector('#chat-log').innerHTML += (`<div class='chat-log-other'>` + data.message['message'] + '</div><br><br>');
+        }
+    }
 };
 
 chatSocket.onclose = function(e) {
@@ -28,10 +45,19 @@ document.querySelector('#chat-message-input').onkeyup = function(e) {
 document.querySelector('#chat-message-submit').onclick = function(e) {
     const messageInputDom = document.querySelector('#chat-message-input');
     const message = messageInputDom.value;
-    console.log('message:' + message)
-    chatSocket.send(JSON.stringify({
-        'message': message
-    }));
-    document.querySelector('#chat-log').innerHTML += (`<div class='chat-log-me'>` + message + '</div><br><br>');
-    messageInputDom.value = '';
+    if (message.trim() != '') {
+        chatSocket.send(JSON.stringify({
+            'command': 'new_message',
+            'message': message,
+            'from': userName
+        }));
+        document.querySelector('#chat-log').innerHTML += (`<div class='chat-log-me'>` + message + '</div><br><br>');
+        messageInputDom.value = '';
+    }
 };
+
+function fetchMessages() {
+    chatSocket.send(JSON.stringify({
+        'command': 'load_history'
+    }));
+  }

@@ -43,6 +43,7 @@ body{
   .flex-wrapper{
       display: flex;
       z-index: 9999;
+      justify-content: center;
   }
 
   .task-wrapper{
@@ -57,6 +58,7 @@ body{
   .chat-log {
     margin: 5px;
     min-height: auto;
+    max-height: 50px;
   }
 
   .chat-log-me {
